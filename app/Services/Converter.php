@@ -122,6 +122,10 @@ class Converter
             return $encrypted;
         }
 
+        if (!is_string($encrypted) || $encrypted === '') {
+            return $encrypted;
+        }
+
         // Unpack base64 message.
         $decoded = base64_decode($encrypted); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 
@@ -168,6 +172,10 @@ class Converter
         $secret_key = apply_filters('wp_mail_smtp_helpers_crypto_get_secret_key', $secret_key);
 
         // If we already have the secret, send it back.
+        if (!is_string($secret_key) || $secret_key === '') {
+            return $secret_key;
+        }
+
         if (false !== $secret_key) {
             $secret_key = base64_decode($secret_key); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
         }
