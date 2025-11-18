@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
-    <title><?php esc_html_e('FluentSMTP Email Health Report', 'websmtp') ?></title>
+    <title><?php esc_html_e('FluentSMTP Email Health Report', 'fluent-smtp') ?></title>
     <style type="text/css">@media only screen and (max-width: 599px) {
             table.body .container {
                 width: 95% !important;
@@ -79,7 +79,7 @@
                         <table width="100%">
                             <tr>
                                 <td>
-                                    <h3 style="margin: 5px 0; color: white;"><?php esc_html_e('Email Sending Health', 'websmtp') ?></h3>
+                                    <h3 style="margin: 5px 0; color: white;"><?php esc_html_e('Email Sending Health', 'fluent-smtp') ?></h3>
                                     <p style="margin: 0;color: white;font-size: 12px;"><?php echo esc_html($date_range); ?></p>
                                 </td>
                                 <td style="text-align: right;">
@@ -111,8 +111,8 @@
                                                style="border: 1px solid #ccd0d4; border-collapse: collapse;">
                                             <tr style="background-color: #f9f9f9;">
                                                 <th style="padding: 8px 10px;"
-                                                    align="left"><?php esc_html_e('Subject', 'websmtp'); ?></th>
-                                                <th style="width:85px; padding: 8px 10px;"><?php esc_html_e('Emails Sent', 'websmtp'); ?></th>
+                                                    align="left"><?php esc_html_e('Subject', 'fluent-smtp'); ?></th>
+                                                <th style="width:85px; padding: 8px 10px;"><?php esc_html_e('Emails Sent', 'fluent-smtp'); ?></th>
                                             </tr>
                                             <?php foreach ($sent['subject_items'] as $index => $item): ?>
                                                 <tr <?php if($index % 2 == 1) { echo 'style="background-color: #f9f9f9;"'; }?>>
@@ -128,9 +128,9 @@
                                                 <td bgcolor="#eeeeee"
                                                     style="background-color: #eeeeee;border-radius: 5px;"
                                                     align="center">
-                                                    <h3 style="font-size: 24px; line-height: 30px; font-weight: normal;"><?php esc_html_e('Looks like no email has been sent to the time period', 'websmtp'); ?></h3>
+                                                    <h3 style="font-size: 24px; line-height: 30px; font-weight: normal;"><?php esc_html_e('Looks like no email has been sent to the time period', 'fluent-smtp'); ?></h3>
                                                     <p>
-                                                        <?php esc_html_e('If this is unusual you should probably check if your site is broken.', 'websmtp');
+                                                        <?php esc_html_e('If this is unusual you should probably check if your site is broken.', 'fluent-smtp');
                                                         ?>
                                                     </p>
                                                 </td>
@@ -161,8 +161,8 @@
                                     <?php if ($fail['subject_items']): ?>
                                         <table width="100%" style="border: 1px solid #ccd0d4; border-collapse: collapse;">
                                             <tr style="background-color: #f9f9f9;">
-                                                <th style="padding: 8px 10px;" align="left"><?php esc_html_e('Subject', 'websmtp'); ?></th>
-                                                <th style="width:85px; padding: 8px 10px;"><?php esc_html_e('Failed Count', 'websmtp'); ?></th>
+                                                <th style="padding: 8px 10px;" align="left"><?php esc_html_e('Subject', 'fluent-smtp'); ?></th>
+                                                <th style="width:85px; padding: 8px 10px;"><?php esc_html_e('Failed Count', 'fluent-smtp'); ?></th>
                                             </tr>
                                             <?php foreach ($fail['subject_items'] as $index => $item): ?>
                                                 <tr <?php if($index % 2 == 1) { echo 'style="background-color: #f9f9f9;"'; }?>>
@@ -177,9 +177,9 @@
                                             <tr>
                                                 <td bgcolor="#eeeeee"
                                                     style="background-color: #eeeeee;border-radius: 5px;" align="center">
-                                                    <h3 style="font-size: 24px; line-height: 30px; font-weight: normal;"><?php esc_html_e('Awesome! no failures! 🎉', 'websmtp'); ?></h3>
+                                                    <h3 style="font-size: 24px; line-height: 30px; font-weight: normal;"><?php esc_html_e('Awesome! no failures! 🎉', 'fluent-smtp'); ?></h3>
                                                     <p>
-                                                        <?php esc_html_e('Your email sending health is perfect', 'websmtp');
+                                                        <?php esc_html_e('Your email sending health is perfect', 'fluent-smtp');
                                                         ?>
                                                     </p>
                                                 </td>
@@ -197,7 +197,7 @@
                         <table width="100%">
                             <tr>
                                 <td>
-                                    <p style="font-size: 10px; line-height: 12px; color: white;"><?php esc_html_e('You received this email because the Email Sending Health Report is enabled in your FluentSMTP settings. Simply turn it off to stop these emails at ', 'websmtp') ?><?php echo esc_html($domain_name); ?>.</p>
+                                    <p style="font-size: 10px; line-height: 12px; color: white;"><?php esc_html_e('You received this email because the Email Sending Health Report is enabled in your FluentSMTP settings. Simply turn it off to stop these emails at ', 'fluent-smtp') ?><?php echo esc_html($domain_name); ?>.</p>
                                 </td>
                                 <td style="text-align: right;width: 100px; padding-left: 15px;">
                                     <img src="<?php echo esc_url(fluentMailMix('images/fluentsmtp-white.png')); ?>"

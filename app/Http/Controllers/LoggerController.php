@@ -43,7 +43,7 @@ class LoggerController extends Controller
         }
         
         return $this->sendSuccess([
-            'message' => sprintf(__('%s deleted successfully.', 'websmtp'), $subject)
+            'message' => sprintf(__('%s deleted successfully.', 'fluent-smtp'), $subject)
         ]);
     }
 
@@ -66,11 +66,11 @@ class LoggerController extends Controller
             if ($email = $logger->resendEmailFromLog($request->get('id'), $request->get('type'))) {
                 return $this->sendSuccess([
                     'email' => $email,
-                    'message' => __('Email sent successfully.', 'websmtp')
+                    'message' => __('Email sent successfully.', 'fluent-smtp')
                 ]);
             }
 
-            throw new \Exception(esc_html__('Something went wrong', 'websmtp'), 400);
+            throw new \Exception(esc_html__('Something went wrong', 'fluent-smtp'), 400);
 
         } catch (\Exception $e) {
             return $this->sendError([
@@ -99,14 +99,14 @@ class LoggerController extends Controller
                 $failedInitiated++;
             }
         }
-        $message = __('Selected Emails have been proceed to send.', 'websmtp');
+        $message = __('Selected Emails have been proceed to send.', 'fluent-smtp');
 
         if ($failedCount) {
-            $message .= sprintf(__(' But %d emails are reported to failed to send.', 'websmtp'), $failedCount);
+            $message .= sprintf(__(' But %d emails are reported to failed to send.', 'fluent-smtp'), $failedCount);
         }
 
         if ($failedInitiated) {
-            $message .= sprintf(__(' And %d emails are failed to init the emails', 'websmtp'), $failedInitiated);
+            $message .= sprintf(__(' And %d emails are failed to init the emails', 'fluent-smtp'), $failedInitiated);
         }
 
         return $this->sendSuccess([

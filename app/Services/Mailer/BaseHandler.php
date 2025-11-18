@@ -303,10 +303,10 @@ class BaseHandler
                 if($row) {
                     $row['response'] = (array) $row['response'];
                     if($status) {
-                        $row['response']['fallback'] = __('Sent using fallback connection ', 'websmtp') . $this->attributes['from'];
+                        $row['response']['fallback'] = __('Sent using fallback connection ', 'fluent-smtp') . $this->attributes['from'];
                         $row['response']['fallback_response'] = $response;
                     } else {
-                        $row['response']['fallback'] = __('Tried to send using fallback but failed. ', 'websmtp') . $this->attributes['from'];
+                        $row['response']['fallback'] = __('Tried to send using fallback but failed. ', 'fluent-smtp') . $this->attributes['from'];
                         $row['response']['fallback_response'] = $response;
                     }
 
@@ -439,12 +439,12 @@ class BaseHandler
 
     public function addNewSenderEmail($connection, $email)
     {
-        return new \WP_Error('not_implemented', __('Not implemented', 'websmtp'));
+        return new \WP_Error('not_implemented', __('Not implemented', 'fluent-smtp'));
     }
 
     public function removeSenderEmail($connection, $email)
     {
-        return new \WP_Error('not_implemented', __('Not implemented', 'websmtp'));
+        return new \WP_Error('not_implemented', __('Not implemented', 'fluent-smtp'));
     }
 
 }

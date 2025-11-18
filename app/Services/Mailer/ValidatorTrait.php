@@ -13,11 +13,11 @@ trait ValidatorTrait
         $errors = [];
 
         if (!($email = Arr::get($connection, 'sender_email'))) {
-            $errors['sender_email']['required'] = __('Sender email is required.', 'websmtp');
+            $errors['sender_email']['required'] = __('Sender email is required.', 'fluent-smtp');
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['sender_email']['email'] = __('Invalid email address.', 'websmtp');
+            $errors['sender_email']['email'] = __('Invalid email address.', 'fluent-smtp');
         }
 
         if ($errors) {
@@ -33,7 +33,7 @@ trait ValidatorTrait
     public function throwValidationException($errors)
     {
         throw new ValidationException(
-            esc_html__('Unprocessable Entity', 'websmtp'), 422, null, $errors // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            esc_html__('Unprocessable Entity', 'fluent-smtp'), 422, null, $errors // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
         );
     }
 }

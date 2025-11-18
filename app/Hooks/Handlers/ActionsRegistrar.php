@@ -143,7 +143,7 @@ class ActionsRegistrar
     protected function registerRestRoutes()
     {
         $this->app->addAction('rest_api_init', function () {
-            register_rest_route('websmtp', '/outlook_callback/', [
+            register_rest_route('fluent-smtp', '/outlook_callback/', [
                 'methods'             => 'GET',
                 'callback'            => [$this, 'handleOutlookCallback'],
                 'permission_callback' => [$this, 'verifyOutlookCallbackState'],
