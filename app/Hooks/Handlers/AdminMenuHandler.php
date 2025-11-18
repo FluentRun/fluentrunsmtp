@@ -21,6 +21,10 @@ class AdminMenuHandler
 
     public function addFluentMailMenu()
     {
+        if (!function_exists('fluentSmtpHasValidLicense') || !\fluentSmtpHasValidLicense()) {
+            return;
+        }
+
         add_action('admin_menu', array($this, 'addMenu'));
 
         if (isset($_GET['page']) && $_GET['page'] == 'fluent-mail' && is_admin()) {
