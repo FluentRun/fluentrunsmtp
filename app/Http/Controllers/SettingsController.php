@@ -92,7 +92,7 @@ class SettingsController extends Controller
             $settings->store($data);
 
             return $this->sendSuccess([
-                'message'     => __('Settings saved successfully.', 'fluent-smtp'),
+                'message'     => __('Settings saved successfully.', 'websmtp'),
                 'connections' => $settings->getConnections(),
                 'mappings'    => $settings->getMappings(),
                 'misc'        => $settings->getMisc()
@@ -114,7 +114,7 @@ class SettingsController extends Controller
         $misc = $request->get('settings');
         $settings->updateMiscSettings($misc);
         $this->sendSuccess([
-            'message' => __('General Settings has been updated', 'fluent-smtp')
+            'message' => __('General Settings has been updated', 'websmtp')
         ]);
     }
 
@@ -137,7 +137,7 @@ class SettingsController extends Controller
 
         return $this->sendSuccess([
             'form'    => $data,
-            'message' => __('Settings saved successfully.', 'fluent-smtp')
+            'message' => __('Settings saved successfully.', 'websmtp')
         ]);
     }
 
@@ -153,7 +153,7 @@ class SettingsController extends Controller
 
             if (!isset($data['email'])) {
                 return $this->sendError([
-                    'email_error' => __('The email field is required.', 'fluent-smtp')
+                    'email_error' => __('The email field is required.', 'websmtp')
                 ], 422);
             }
 
@@ -164,7 +164,7 @@ class SettingsController extends Controller
             $settings->sendTestEmail($data, $settings->get());
 
             return $this->sendSuccess([
-                'message' => __('Email delivered successfully.', 'fluent-smtp')
+                'message' => __('Email delivered successfully.', 'websmtp')
             ]);
 
         } catch (Exception $e) {
@@ -199,7 +199,7 @@ class SettingsController extends Controller
         }
 
         if ($errors) {
-            throw new ValidationException(esc_html__('Unprocessable Entity', 'fluent-smtp'), 422, null, $errors); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new ValidationException(esc_html__('Unprocessable Entity', 'websmtp'), 422, null, $errors); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
         }
     }
 
@@ -212,7 +212,7 @@ class SettingsController extends Controller
 
         if (!isset($connections[$connectionId]['provider_settings'])) {
             return $this->sendSuccess([
-                'info' => __('Sorry no connection found. Please reload the page and try again', 'fluent-smtp')
+                'info' => __('Sorry no connection found. Please reload the page and try again', 'websmtp')
             ]);
         }
 
@@ -232,7 +232,7 @@ class SettingsController extends Controller
 
         if (!isset($connections[$connectionId]['provider_settings'])) {
             return $this->sendSuccess([
-                'info' => __('Sorry no connection found. Please reload the page and try again', 'fluent-smtp')
+                'info' => __('Sorry no connection found. Please reload the page and try again', 'websmtp')
             ]);
         }
 
@@ -243,7 +243,7 @@ class SettingsController extends Controller
 
         if (!is_email($email)) {
             return $this->sendError([
-                'message' => __('Please provide a valid email address', 'fluent-smtp')
+                'message' => __('Please provide a valid email address', 'websmtp')
             ]);
         }
 
@@ -256,7 +256,7 @@ class SettingsController extends Controller
         }
 
         return $this->sendSuccess([
-            'message' => __('Email has been added successfully', 'fluent-smtp')
+            'message' => __('Email has been added successfully', 'websmtp')
         ]);
 
     }
@@ -270,7 +270,7 @@ class SettingsController extends Controller
 
         if (!isset($connections[$connectionId]['provider_settings'])) {
             return $this->sendSuccess([
-                'info' => __('Sorry no connection found. Please reload the page and try again', 'fluent-smtp')
+                'info' => __('Sorry no connection found. Please reload the page and try again', 'websmtp')
             ]);
         }
 
@@ -281,7 +281,7 @@ class SettingsController extends Controller
 
         if (!is_email($email)) {
             return $this->sendError([
-                'message' => __('Please provide a valid email address', 'fluent-smtp')
+                'message' => __('Please provide a valid email address', 'websmtp')
             ]);
         }
 
@@ -294,7 +294,7 @@ class SettingsController extends Controller
         }
 
         return $this->sendSuccess([
-            'message' => __('Email has been removed successfully', 'fluent-smtp')
+            'message' => __('Email has been removed successfully', 'websmtp')
         ]);
 
     }
@@ -312,28 +312,28 @@ class SettingsController extends Controller
         $UrlMaps = [
             'fluentform'   => [
                 'admin_url' => admin_url('admin.php?page=fluent_forms'),
-                'title'     => __('Go to Fluent Forms Dashboard', 'fluent-smtp')
+                'title'     => __('Go to Fluent Forms Dashboard', 'websmtp')
             ],
             'fluent-crm'   => [
                 'admin_url' => admin_url('admin.php?page=fluentcrm-admin'),
-                'title'     => __('Go to FluentCRM Dashboard', 'fluent-smtp')
+                'title'     => __('Go to FluentCRM Dashboard', 'websmtp')
             ],
             'ninja-tables' => [
                 'admin_url' => admin_url('admin.php?page=ninja_tables#/'),
-                'title'     => __('Go to Ninja Tables Dashboard', 'fluent-smtp')
+                'title'     => __('Go to Ninja Tables Dashboard', 'websmtp')
             ]
         ];
 
         if (!isset($UrlMaps[$pluginSlug]) || (defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS)) {
             $this->sendError([
-                'message' => __('Sorry, You can not install this plugin', 'fluent-smtp')
+                'message' => __('Sorry, You can not install this plugin', 'websmtp')
             ]);
         }
 
         try {
             $this->backgroundInstaller($plugin);
             $this->send([
-                'message' => __('Plugin has been successfully installed.', 'fluent-smtp'),
+                'message' => __('Plugin has been successfully installed.', 'websmtp'),
                 'info'    => $UrlMaps[$pluginSlug]
             ]);
         } catch (\Exception $exception) {
@@ -470,7 +470,7 @@ class SettingsController extends Controller
 
         if (!is_email($email)) {
             return $this->sendError([
-                'message' => __('Sorry! The provider email is not valid', 'fluent-smtp')
+                'message' => __('Sorry! The provider email is not valid', 'websmtp')
             ], 422);
         }
 
@@ -486,7 +486,7 @@ class SettingsController extends Controller
         $this->pushData($email, $shareEssentials, $displayName);
 
         return $this->sendSuccess([
-            'message' => __('You are subscribed to plugin update and monthly tips', 'fluent-smtp')
+            'message' => __('You are subscribed to plugin update and monthly tips', 'websmtp')
         ]);
     }
 
@@ -539,7 +539,7 @@ class SettingsController extends Controller
             } else {
                 return $this->sendError([
                     'client_id' => [
-                        'required' => __('Please define FLUENTMAIL_GMAIL_CLIENT_ID in your wp-config.php file', 'fluent-smtp')
+                        'required' => __('Please define FLUENTMAIL_GMAIL_CLIENT_ID in your wp-config.php file', 'websmtp')
                     ]
                 ]);
             }
@@ -548,7 +548,7 @@ class SettingsController extends Controller
             } else {
                 return $this->sendError([
                     'client_secret' => [
-                        'required' => __('Please define FLUENTMAIL_GMAIL_CLIENT_SECRET in your wp-config.php file', 'fluent-smtp')
+                        'required' => __('Please define FLUENTMAIL_GMAIL_CLIENT_SECRET in your wp-config.php file', 'websmtp')
                     ]
                 ]);
             }
@@ -557,7 +557,7 @@ class SettingsController extends Controller
         if (!$clientId) {
             return $this->sendError([
                 'client_id' => [
-                    'required' => __('Please provide application client id', 'fluent-smtp')
+                    'required' => __('Please provide application client id', 'websmtp')
                 ]
             ]);
         }
@@ -565,7 +565,7 @@ class SettingsController extends Controller
         if (!$clientSecret) {
             return $this->sendError([
                 'client_secret' => [
-                    'required' => __('Please provide application client secret', 'fluent-smtp')
+                    'required' => __('Please provide application client secret', 'websmtp')
                 ]
             ]);
         }
@@ -602,7 +602,7 @@ class SettingsController extends Controller
             } else {
                 return $this->sendError([
                     'client_id' => [
-                        'required' => __('Please define FLUENTMAIL_OUTLOOK_CLIENT_ID in your wp-config.php file', 'fluent-smtp')
+                        'required' => __('Please define FLUENTMAIL_OUTLOOK_CLIENT_ID in your wp-config.php file', 'websmtp')
                     ]
                 ]);
             }
@@ -611,7 +611,7 @@ class SettingsController extends Controller
             } else {
                 return $this->sendError([
                     'client_secret' => [
-                        'required' => __('Please define FLUENTMAIL_OUTLOOK_CLIENT_SECRET in your wp-config.php file', 'fluent-smtp')
+                        'required' => __('Please define FLUENTMAIL_OUTLOOK_CLIENT_SECRET in your wp-config.php file', 'websmtp')
                     ]
                 ]);
             }
@@ -625,7 +625,7 @@ class SettingsController extends Controller
         if (!$clientId) {
             return $this->sendError([
                 'client_id' => [
-                    'required' => __('Please provide application client id', 'fluent-smtp')
+                    'required' => __('Please provide application client id', 'websmtp')
                 ]
             ]);
         }
@@ -633,7 +633,7 @@ class SettingsController extends Controller
         if (!$clientSecret) {
             return $this->sendError([
                 'client_secret' => [
-                    'required' => __('Please provide application client secret', 'fluent-smtp')
+                    'required' => __('Please provide application client secret', 'websmtp')
                 ]
             ]);
         }
@@ -680,7 +680,7 @@ class SettingsController extends Controller
         update_option('_fluent_smtp_notify_settings', $settings, false);
 
         return $this->sendSuccess([
-            'message' => __('Settings has been updated successfully', 'fluent-smtp')
+            'message' => __('Settings has been updated successfully', 'websmtp')
         ]);
     }
 

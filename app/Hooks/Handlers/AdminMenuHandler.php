@@ -80,13 +80,13 @@ class AdminMenuHandler
             <div
                 style="background-color: #fff;border: 1px solid #dcdcde;box-sizing: border-box;padding: 20px;margin: 15px 0;"
                 class="fluent_smtp_box">
-                <h3 style="margin: 0;"><?php __('For SMTP, you already have WebSMTP Installed', 'fluent-smtp'); ?></h3>
-                <p><?php __('You seem to be looking for an SMTP plugin, but there\'s no need for another one — WebSMTP is already installed on your site. WebSMTP is a comprehensive, free, and open-source plugin with full features available without any upsell', 'fluent-smtp'); ?>
-                    (<a href="https://fluentsmtp.com/why-we-built-fluentsmtp-plugin/"><?php __('learn why it\'s free', 'fluent-smtp'); ?></a>)<?php __('. It\'s compatible with various SMTP services, including Amazon SES, SendGrid, MailGun, ElasticEmail, SendInBlue, Google, Microsoft, and others, providing you with a wide range of options for your email needs.', 'fluent-smtp'); ?>
+                <h3 style="margin: 0;"><?php __('For SMTP, you already have WebSMTP Installed', 'websmtp'); ?></h3>
+                <p><?php __('You seem to be looking for an SMTP plugin, but there\'s no need for another one — WebSMTP is already installed on your site. WebSMTP is a comprehensive, free, and open-source plugin with full features available without any upsell', 'websmtp'); ?>
+                    (<a href="https://fluentsmtp.com/why-we-built-fluentsmtp-plugin/"><?php __('learn why it\'s free', 'websmtp'); ?></a>)<?php __('. It\'s compatible with various SMTP services, including Amazon SES, SendGrid, MailGun, ElasticEmail, SendInBlue, Google, Microsoft, and others, providing you with a wide range of options for your email needs.', 'websmtp'); ?>
                 </p><a href="<?php echo esc_url(admin_url('options-general.php?page=fluent-mail#/')); ?>"
-                       class="wp-core-ui button button-primary"><?php __('Go To WebSMTP Settings', 'fluent-smtp'); ?></a>
+                       class="wp-core-ui button button-primary"><?php __('Go To WebSMTP Settings', 'websmtp'); ?></a>
                 <p style="font-size: 80%; margin: 15px 0 0;"><?php __('This notice is from WebSMTP plugin to prevent plugin
-                    conflict.', 'fluent-smtp') ?></p>
+                    conflict.', 'websmtp') ?></p>
             </div>
             <?php
         }, 1);
@@ -95,7 +95,7 @@ class AdminMenuHandler
             // This widget should be displayed for certain high-level users only.
             if (!current_user_can('manage_options') || apply_filters('fluent_mail_disable_dashboard_widget', false)) {
                 wp_send_json([
-                    'html' => __('You do not have permission to see this data', 'fluent-smtp')
+                    'html' => __('You do not have permission to see this data', 'websmtp')
                 ]);
             }
 
@@ -108,7 +108,7 @@ class AdminMenuHandler
 
     public function addMenu()
     {
-        $title = $this->app->applyCustomFilters('admin-menu-title', __('WebSMTP', 'fluent-smtp'));
+        $title = $this->app->applyCustomFilters('admin-menu-title', __('WebSMTP', 'websmtp'));
 
         add_submenu_page(
             'options-general.php',
@@ -165,7 +165,7 @@ class AdminMenuHandler
                 }
 
                 $src = $wp_scripts->registered[$script]->src;
-                $isMatched = strpos($src, $pluginUrl) !== false && !strpos($src, 'fluent-smtp') !== false;
+                $isMatched = strpos($src, $pluginUrl) !== false && !strpos($src, 'websmtp') !== false;
                 if (!$isMatched) {
                     continue;
                 }
@@ -267,7 +267,7 @@ class AdminMenuHandler
             return;
         }
 
-        echo '<div class="notice notice-error"><p>' . esc_html__('Please activate your WebSMTP license to continue.', 'fluent-smtp') . '</p></div>';
+        echo '<div class="notice notice-error"><p>' . esc_html__('Please activate your WebSMTP license to continue.', 'websmtp') . '</p></div>';
     }
 
     protected function getMailerSettings()
@@ -309,19 +309,19 @@ class AdminMenuHandler
         if ($requireUpdate) { ?>
             <div class="notice notice-warning">
                 <p>
-                    <?php echo esc_html(sprintf(__('WordPress version 5.5 or greater is required for WebSMTP. You are using version %s currently. Please update your WordPress Core to use WebSMTP Plugin.', 'fluent-smtp'), $wp_version)); ?>
+                    <?php echo esc_html(sprintf(__('WordPress version 5.5 or greater is required for WebSMTP. You are using version %s currently. Please update your WordPress Core to use WebSMTP Plugin.', 'websmtp'), $wp_version)); ?>
                 </p>
             </div>
         <?php } else if (empty($connections)) {
             ?>
             <div class="notice notice-warning">
                 <p>
-                    <?php esc_html_e('WebSMTP needs to be configured for it to work.', 'fluent-smtp'); ?>
+                    <?php esc_html_e('WebSMTP needs to be configured for it to work.', 'websmtp'); ?>
                 </p>
                 <p>
                     <a href="<?php echo esc_url(admin_url('options-general.php?page=fluent-mail#/')); ?>"
                        class="button button-primary">
-                        <?php esc_html_e('Configure WebSMTP', 'fluent-smtp'); ?>
+                        <?php esc_html_e('Configure WebSMTP', 'websmtp'); ?>
                     </a>
                 </p>
             </div>
@@ -341,7 +341,7 @@ class AdminMenuHandler
             $args = [
                 'parent' => 'top-secondary',
                 'id'     => 'fluentsmtp_simulated',
-                'title'  => __('Email Disabled', 'fluent-smtp'),
+                'title'  => __('Email Disabled', 'websmtp'),
                 'href'   => admin_url('options-general.php?page=fluent-mail#/connections'),
                 'meta'   => false
             ];
@@ -379,7 +379,7 @@ class AdminMenuHandler
 
             wp_add_dashboard_widget(
                 $widget_key,
-                esc_html__('WebSMTP', 'fluent-smtp'),
+                esc_html__('WebSMTP', 'websmtp'),
                 [$this, 'dashWidgetContent']
             );
 
@@ -398,7 +398,7 @@ class AdminMenuHandler
             }
         </style>
         <div id="fsmtp_dashboard_widget_html" class="fsmtp_dash_wrapper">
-            <h3 style="min-height: 170px;"><?php esc_html_e('Loading data...', 'fluent-smtp'); ?></h3>
+            <h3 style="min-height: 170px;"><?php esc_html_e('Loading data...', 'websmtp'); ?></h3>
         </div>
         <?php
         add_action('admin_footer', function () {
@@ -437,20 +437,20 @@ class AdminMenuHandler
         $allTime = $logModel->getStats();
 
         $stats['today'] = [
-            'title'  => __('Today', 'fluent-smtp'),
+            'title'  => __('Today', 'websmtp'),
             'sent'   => ($allTime['sent']) ? $logModel->getTotalCountStat('sent', $startToday) : 0,
             'failed' => ($allTime['failed']) ? $logModel->getTotalCountStat('failed', $startToday) : 0
         ];
 
         $lastWeek = gmdate('Y-m-d 00:00:01', strtotime('-7 days'));
         $stats['week'] = [
-            'title'  => __('Last 7 days', 'fluent-smtp'),
+            'title'  => __('Last 7 days', 'websmtp'),
             'sent'   => ($allTime['sent']) ? $logModel->getTotalCountStat('sent', $lastWeek) : 0,
             'failed' => ($allTime['failed']) ? $logModel->getTotalCountStat('failed', $lastWeek) : 0,
         ];
 
         $stats['all_time'] = [
-            'title'  => __('All', 'fluent-smtp'),
+            'title'  => __('All', 'websmtp'),
             'sent'   => $allTime['sent'],
             'failed' => $allTime['failed'],
         ];
@@ -459,9 +459,9 @@ class AdminMenuHandler
         <table class="fsmtp_dash_table wp-list-table widefat fixed striped">
             <thead>
             <tr>
-                <th><?php esc_html_e('Date', 'fluent-smtp'); ?></th>
-                <th><?php esc_html_e('Sent', 'fluent-smtp'); ?></th>
-                <th><?php esc_html_e('Failed', 'fluent-smtp'); ?></th>
+                <th><?php esc_html_e('Date', 'websmtp'); ?></th>
+                <th><?php esc_html_e('Sent', 'websmtp'); ?></th>
+                <th><?php esc_html_e('Failed', 'websmtp'); ?></th>
             </tr>
             </thead>
             <tbody>
@@ -476,7 +476,7 @@ class AdminMenuHandler
         </table>
         <a style="text-decoration: none; padding-top: 10px; display: block"
            href="<?php echo esc_url(admin_url('options-general.php?page=fluent-mail#/')); ?>"
-           class=""><?php esc_html_e('View All', 'fluent-smtp'); ?></a>
+           class=""><?php esc_html_e('View All', 'websmtp'); ?></a>
         <?php
 
         return ob_get_clean();

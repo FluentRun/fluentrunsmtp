@@ -47,7 +47,7 @@ class Validator
             );
 
             if (!in_array($senderEmail, $result['Addresses'])) {
-                throw new \Exception(esc_html__('The from email is not verified', 'fluent-smtp'), 400);
+                throw new \Exception(esc_html__('The from email is not verified', 'websmtp'), 400);
             }
 
             fluentMail(Settings::class)->saveVerifiedEmails($result['Addresses']);

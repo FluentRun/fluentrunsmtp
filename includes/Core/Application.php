@@ -26,7 +26,7 @@ final class Application extends Container
         $this->registerFrameworkComponents();
         $this->requireCommonFilesForRequest($this);
 
-        load_plugin_textdomain('fluent-smtp', false, 'fluent-smtp/language/');
+        load_plugin_textdomain('websmtp', false, dirname(plugin_basename(FLUENTMAIL_PLUGIN_FILE)) . '/language/');
 
         /*
          * We are adding fluent-smtp/fluent-smtp.php at the top to load the wp_mail at the very first

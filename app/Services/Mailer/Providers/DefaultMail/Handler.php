@@ -13,7 +13,7 @@ class Handler extends BaseHandler
             return $this->postSend();
         }
 
-        return $this->handleResponse(new \WP_Error(422, __('Something went wrong!', 'fluent-smtp'), []) );
+        return $this->handleResponse(new \WP_Error(422, __('Something went wrong!', 'websmtp'), []) );
     }
 
     protected function postSend()

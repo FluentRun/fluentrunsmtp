@@ -19,7 +19,7 @@ class SlackController extends Controller
 
         if (!is_email($userEmail)) {
             return $this->sendError([
-                'message' => __('Please provide a valid email address', 'fluent-smtp')
+                'message' => __('Please provide a valid email address', 'websmtp')
             ], 422);
         }
 
@@ -55,7 +55,7 @@ class SlackController extends Controller
         update_option('_fluent_smtp_notify_settings', $prevSettings);
 
         return $this->sendSuccess([
-            'message'      => __('Awesome! You are redirecting to slack', 'fluent-smtp'),
+            'message'      => __('Awesome! You are redirecting to slack', 'websmtp'),
             'redirect_url' => Arr::get($activationData, 'redirect_url')
         ]);
     }
@@ -67,7 +67,7 @@ class SlackController extends Controller
 
         if (Arr::get($settings, 'slack.status') != 'yes') {
             return $this->sendError([
-                'message' => __('Slack notification is not enabled', 'fluent-smtp')
+                'message' => __('Slack notification is not enabled', 'websmtp')
             ], 422);
         }
 
@@ -83,7 +83,7 @@ class SlackController extends Controller
         }
 
         return $this->sendSuccess([
-            'message' => __('Test message sent successfully', 'fluent-smtp')
+            'message' => __('Test message sent successfully', 'websmtp')
         ]);
     }
 
@@ -100,7 +100,7 @@ class SlackController extends Controller
         update_option('_fluent_smtp_notify_settings', $settings);
 
         return $this->sendSuccess([
-            'message' => __('Slack connection has been disconnected successfully', 'fluent-smtp')
+            'message' => __('Slack connection has been disconnected successfully', 'websmtp')
         ]);
     }
 
