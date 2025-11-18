@@ -26,12 +26,16 @@ register_deactivation_hook(
     __FILE__, array('\FluentMail\Includes\Deactivator', 'handle')
 );
 
-add_action('plugins_loaded', 'fluentSmtpInitUpdater', 8);
+add_action('init', 'fluentSmtpInitUpdater', 8);
 
 function fluentSmtpInitUpdater()
 {
     if (!class_exists('\\FluentMail\\Updater\\FluentLicensing')) {
         require_once plugin_dir_path(__FILE__) . 'updater/FluentLicensing.php';
+    }
+
+    if (!class_exists('\\FluentMail\\Updater\\LicenseSettings')) {
+        require_once plugin_dir_path(__FILE__) . 'updater/LicenseSettings.php';
     }
 
     try {
@@ -46,14 +50,6 @@ function fluentSmtpInitUpdater()
         return;
     }
 
-    if (!is_admin()) {
-        return;
-    }
-
-    if (!class_exists('\\FluentMail\\Updater\\LicenseSettings')) {
-        require_once plugin_dir_path(__FILE__) . 'updater/LicenseSettings.php';
-    }
-
     (new \FluentMail\Updater\LicenseSettings())
         ->register($licensing, [
             'menu_title'   => 'FluentSMTP License',
@@ -64,10 +60,108 @@ function fluentSmtpInitUpdater()
             'account_url'  => 'https://fluentsmtp.com/account/',
             'plugin_name'  => 'FluentSMTP',
         ])
+        ->setConfig([
+            'title' => 'FluentSMTP License Settings'
+        ])
         ->addPage([
             'type'      => 'options',
             'menu_slug' => 'fluentsmtp-license',
         ]);
+}
+
+add_filter('http_request_args', 'fluentSmtpBlockWpOrgUpdates', 10, 2);
+function fluentSmtpBlockWpOrgUpdates($args, $url)
+{
+    if (strpos($url, 'api.wordpress.org/plugins/update-check') === false) {
+        return $args;
+    }
+
+    if (empty($args['body']['plugins'])) {
+        return $args;
+    }
+
+    $plugins = json_decode($args['body']['plugins'], true);
+
+    if (isset($plugins['plugins']['fluentrunsmtp/fluent-smtp.php'])) {
+        unset($plugins['plugins']['fluentrunsmtp/fluent-smtp.php']);
+    }
+
+    if (isset($plugins['active']) && is_array($plugins['active'])) {
+        $plugins['active'] = array_values(array_filter($plugins['active'], function ($plugin) {
+            return $plugin !== 'fluentrunsmtp/fluent-smtp.php';
+        }));
+    }
+
+    $args['body']['plugins'] = wp_json_encode($plugins);
+
+    return $args;
+}
+
+function fluentSmtpCurrentLicenseStatus()
+{
+    if (!class_exists('\\FluentMail\\Updater\\FluentLicensing')) {
+        return [
+            'status' => 'unregistered'
+        ];
+    }
+
+    try {
+        $licensing = \FluentMail\Updater\FluentLicensing::getInstance();
+    } catch (\Exception $exception) {
+        return [
+            'status'         => 'unregistered',
+            'error_message'  => $exception->getMessage(),
+            'error_instance' => true
+        ];
+    }
+
+    $status = $licensing->getStatus();
+
+    if (is_wp_error($status)) {
+        return [
+            'status'        => 'error',
+            'error_message' => $status->get_error_message()
+        ];
+    }
+
+    return $status;
+}
+
+function fluentSmtpHasValidLicense()
+{
+    $status = fluentSmtpCurrentLicenseStatus();
+
+    return isset($status['status']) && $status['status'] === 'valid';
+}
+
+add_action('admin_init', 'fluentSmtpEnforceLicenseUi');
+function fluentSmtpEnforceLicenseUi()
+{
+    if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) {
+        return;
+    }
+
+    if (fluentSmtpHasValidLicense()) {
+        return;
+    }
+
+    $page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
+    $pluginPages = apply_filters('fluentsmtp_restricted_pages', ['fluent-mail']);
+
+    if (empty($page) || !in_array($page, (array)$pluginPages, true)) {
+        return;
+    }
+
+    if ($page === 'fluentsmtp-license') {
+        return;
+    }
+
+    if (!empty($page) && strpos($page, 'license') !== false) {
+        return;
+    }
+
+    wp_safe_redirect(admin_url('options-general.php?page=fluentsmtp-license'));
+    exit;
 }
 
 /**
