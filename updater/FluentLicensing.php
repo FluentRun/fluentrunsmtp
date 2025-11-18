@@ -27,6 +27,7 @@ class FluentLicensing
         $this->config['slug'] = (string)$slug;
 
         $this->settingsKey = isset($config['settings_key']) ? $config['settings_key'] : '__' . $this->config['slug'] . '_sl_info';
+        $this->config['settings_key'] = $this->settingsKey;
 
         $config = $this->config;
 

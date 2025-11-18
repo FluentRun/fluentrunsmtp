@@ -193,6 +193,21 @@ class PluginUpdater
             'license_key'      => $this->config['license_key'],
         ];
 
+        if (!empty($this->config['settings_key'])) {
+            $licenseData = get_option($this->config['settings_key'], []);
+            if (is_array($licenseData)) {
+                if (empty($payload['license_key']) && !empty($licenseData['license_key'])) {
+                    $payload['license_key'] = $licenseData['license_key'];
+                }
+                if (!empty($licenseData['activation_hash'])) {
+                    $payload['activation_hash'] = $licenseData['activation_hash'];
+                }
+                if (!empty($licenseData['variation_id'])) {
+                    $payload['variation_id'] = $licenseData['variation_id'];
+                }
+            }
+        }
+
         if (empty($payload['license_key']) && !empty($this->config['license_key_callback'])) {
             $payload['license_key'] = call_user_func($this->config['license_key_callback']);
         }
