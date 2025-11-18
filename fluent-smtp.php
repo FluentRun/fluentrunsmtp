@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name:  FluentSMTP
-Plugin URI:   https://fluentsmtp.com
+Plugin Name:  FluentRunSMTP
+Plugin URI:   https://fluentrun.com
 Description:  The Ultimate SMTP Connection Plugin for WordPress.
 Version:      2.2.92
 Author:       FluentSMTP & WPManageNinja Team
 Author URI:   https://fluentsmtp.com
 License:      GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:  fluent-smtp
+Text Domain:  fluent-run-smtp
 Domain Path:  /language
 */
 
