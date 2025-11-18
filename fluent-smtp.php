@@ -37,9 +37,9 @@ function fluentSmtpInitUpdater()
     try {
         $licensing = (new \FluentMail\Updater\FluentLicensing())->register(apply_filters('fluentsmtp_updater_config', [
             'version'  => FLUENTMAIL_PLUGIN_VERSION,
-            'item_id'  => 'fluentsmtp',
+            'item_id'  => '1643',
             'basename' => plugin_basename(FLUENTMAIL_PLUGIN_FILE),
-            'api_url'  => 'https://fluentsmtp.com/',
+            'api_url'  => 'https://east.webmakerr.com/',
         ]));
     } catch (\Exception $exception) {
         error_log('FluentSMTP updater initialization failed: ' . $exception->getMessage());
