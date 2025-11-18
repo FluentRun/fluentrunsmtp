@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name:  FluentSMTP
-Plugin URI:   https://fluentsmtp.com
+Plugin Name:  FluentRunSMTP
+Plugin URI:   https://east.webmakerr.com
 Description:  The Ultimate SMTP Connection Plugin for WordPress.
 Version:      1.0.0
 Author:       FluentSMTP & WPManageNinja Team
