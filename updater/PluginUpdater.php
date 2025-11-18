@@ -221,6 +221,18 @@ class PluginUpdater
         }
 
         $versionInfo = json_decode($responseBody);
+        if (isset($versionInfo->data) && is_object($versionInfo->data)) {
+            $versionInfo = $versionInfo->data;
+        }
+
+        if (isset($versionInfo->version) && !isset($versionInfo->new_version)) {
+            $versionInfo->new_version = $versionInfo->version;
+        }
+
+        if (isset($versionInfo->download_url) && !isset($versionInfo->package)) {
+            $versionInfo->package = $versionInfo->download_url;
+        }
+
         if (null === $versionInfo || !is_object($versionInfo)) {
             return false; // Return false if the response body is not a valid JSON object.
         }
