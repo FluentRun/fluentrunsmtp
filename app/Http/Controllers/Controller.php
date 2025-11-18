@@ -48,7 +48,7 @@ abstract class Controller
         $permission = 'manage_options';
         if(!current_user_can($permission)) {
             wp_send_json_error([
-                'message' => __('You do not have permission to do this action', 'websmtp')
+                'message' => __('You do not have permission to do this action', 'fluent-smtp')
             ]);
             die();
         }
@@ -56,7 +56,7 @@ abstract class Controller
         $nonce = $this->request->get('nonce');
         if(!wp_verify_nonce($nonce, FLUENTMAIL)) {
             wp_send_json_error([
-                'message' => __('Security Failed. Please reload the page', 'websmtp')
+                'message' => __('Security Failed. Please reload the page', 'fluent-smtp')
             ]);
             die();
         }

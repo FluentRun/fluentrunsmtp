@@ -73,7 +73,7 @@ class API
 
                 $error = Arr::get($responseBody, 'error.message');
                 if (!$error) {
-                    $error = __('Something with wrong with Outlook API. Please check your API Settings', 'websmtp');
+                    $error = __('Something with wrong with Outlook API. Please check your API Settings', 'fluent-smtp');
                 }
             }
 

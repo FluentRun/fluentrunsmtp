@@ -23,7 +23,7 @@ class Handler extends BaseHandler
             return $this->postSend();
         }
 
-        return $this->handleResponse(new \WP_Error(422, __('Something went wrong!', 'websmtp'), []) );
+        return $this->handleResponse(new \WP_Error(422, __('Something went wrong!', 'fluent-smtp'), []) );
     }
 
     public function postSend()
@@ -76,7 +76,7 @@ class Handler extends BaseHandler
                     'response' => $responseBody
                 ];
             } else {
-                $returnResponse = new \WP_Error($responseCode, __('SparkPost API Error', 'websmtp'), $responseBody);
+                $returnResponse = new \WP_Error($responseCode, __('SparkPost API Error', 'fluent-smtp'), $responseBody);
             }
         }
 

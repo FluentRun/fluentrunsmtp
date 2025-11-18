@@ -17,19 +17,19 @@ trait ValidatorTrait
 
         if ($keyStoreType == 'db') {
             if (!Arr::get($connection, 'access_key')) {
-                $errors['access_key']['required'] = __('Access key is required.', 'websmtp');
+                $errors['access_key']['required'] = __('Access key is required.', 'fluent-smtp');
             }
 
             if (!Arr::get($connection, 'secret_key')) {
-                $errors['secret_key']['required'] = __('Secret key is required.', 'websmtp');
+                $errors['secret_key']['required'] = __('Secret key is required.', 'fluent-smtp');
             }
         } else if ($keyStoreType == 'wp_config') {
             if (!defined('FLUENTMAIL_AWS_ACCESS_KEY_ID') || !FLUENTMAIL_AWS_ACCESS_KEY_ID) {
-                $errors['access_key']['required'] = __('Please define FLUENTMAIL_AWS_ACCESS_KEY_ID in wp-config.php file.', 'websmtp');
+                $errors['access_key']['required'] = __('Please define FLUENTMAIL_AWS_ACCESS_KEY_ID in wp-config.php file.', 'fluent-smtp');
             }
 
             if (!defined('FLUENTMAIL_AWS_SECRET_ACCESS_KEY') || !FLUENTMAIL_AWS_SECRET_ACCESS_KEY) {
-                $errors['secret_key']['required'] = __('Please define FLUENTMAIL_AWS_SECRET_ACCESS_KEY in wp-config.php file.', 'websmtp');
+                $errors['secret_key']['required'] = __('Please define FLUENTMAIL_AWS_SECRET_ACCESS_KEY in wp-config.php file.', 'fluent-smtp');
             }
         }
 

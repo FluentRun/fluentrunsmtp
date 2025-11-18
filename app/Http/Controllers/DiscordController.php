@@ -17,13 +17,13 @@ class DiscordController extends Controller
 
         if (empty($formData['webhook_url'])) {
             return $this->sendError([
-                'message' => __('Webhook URL is required', 'websmtp')
+                'message' => __('Webhook URL is required', 'fluent-smtp')
             ], 422);
         }
 
         if (empty($formData['channel_name'])) {
             return $this->sendError([
-                'message' => __('Channel Name required', 'websmtp')
+                'message' => __('Channel Name required', 'fluent-smtp')
             ], 422);
         }
 
@@ -41,7 +41,7 @@ class DiscordController extends Controller
         update_option('_fluent_smtp_notify_settings', $prevSettings);
 
         return $this->sendSuccess([
-            'message' => __('Your settings has been saved', 'websmtp'),
+            'message' => __('Your settings has been saved', 'fluent-smtp'),
         ]);
     }
 
@@ -52,7 +52,7 @@ class DiscordController extends Controller
 
         if (Arr::get($settings, 'discord.status') != 'yes') {
             return $this->sendError([
-                'message' => __('Slack notification is not enabled', 'websmtp')
+                'message' => __('Slack notification is not enabled', 'fluent-smtp')
             ], 422);
         }
 
@@ -68,7 +68,7 @@ class DiscordController extends Controller
         }
 
         return $this->sendSuccess([
-            'message'         => __('Test message sent successfully', 'websmtp'),
+            'message'         => __('Test message sent successfully', 'fluent-smtp'),
             'server_response' => $result
         ]);
     }
@@ -88,7 +88,7 @@ class DiscordController extends Controller
         update_option('_fluent_smtp_notify_settings', $settings);
 
         return $this->sendSuccess([
-            'message' => __('Discord connection has been disconnected successfully', 'websmtp')
+            'message' => __('Discord connection has been disconnected successfully', 'fluent-smtp')
         ]);
     }
 

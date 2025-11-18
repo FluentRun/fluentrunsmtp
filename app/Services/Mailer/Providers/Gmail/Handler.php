@@ -15,7 +15,7 @@ class Handler extends BaseHandler
             return $this->postSend();
         }
 
-        return $this->handleResponse(new \WP_Error(422, __('Something went wrong!', 'websmtp'), []));
+        return $this->handleResponse(new \WP_Error(422, __('Something went wrong!', 'fluent-smtp'), []));
     }
 
     protected function postSend()
@@ -114,21 +114,21 @@ class Handler extends BaseHandler
 
         if ($keyStoreType == 'db') {
             if (!$clientId) {
-                $errors['client_id']['required'] = __('Application Client ID is required.', 'websmtp');
+                $errors['client_id']['required'] = __('Application Client ID is required.', 'fluent-smtp');
             }
 
             if (!$clientSecret) {
-                $errors['client_secret']['required'] = __('Application Client Secret key is required.', 'websmtp');
+                $errors['client_secret']['required'] = __('Application Client Secret key is required.', 'fluent-smtp');
             }
         } else if ($keyStoreType == 'wp_config') {
             if (!defined('FLUENTMAIL_GMAIL_CLIENT_ID') || !FLUENTMAIL_GMAIL_CLIENT_ID) {
-                $errors['client_id']['required'] = __('Please define FLUENTMAIL_GMAIL_CLIENT_ID in wp-config.php file.', 'websmtp');
+                $errors['client_id']['required'] = __('Please define FLUENTMAIL_GMAIL_CLIENT_ID in wp-config.php file.', 'fluent-smtp');
             } else {
                 $clientId = FLUENTMAIL_GMAIL_CLIENT_ID;
             }
 
             if (!defined('FLUENTMAIL_GMAIL_CLIENT_SECRET') || !FLUENTMAIL_GMAIL_CLIENT_SECRET) {
-                $errors['client_secret']['required'] = __('Please define FLUENTMAIL_GMAIL_CLIENT_SECRET in wp-config.php file.', 'websmtp');
+                $errors['client_secret']['required'] = __('Please define FLUENTMAIL_GMAIL_CLIENT_SECRET in wp-config.php file.', 'fluent-smtp');
             } else {
                 $clientSecret = FLUENTMAIL_GMAIL_CLIENT_SECRET;
             }
@@ -174,7 +174,7 @@ class Handler extends BaseHandler
                 }, 10, 2);
             }
         } else if (!$authToken && !$accessToken) {
-            $errors['auth_token']['required'] = __('Please Provide Auth Token.', 'websmtp');
+            $errors['auth_token']['required'] = __('Please Provide Auth Token.', 'fluent-smtp');
         }
 
         if ($errors) {
@@ -279,7 +279,7 @@ class Handler extends BaseHandler
             if (!$result) {
                 $errorDescription = Arr::get($newTokens, 'error_description');
                 if (!$errorDescription) {
-                    $errorDescription = __('Failed to renew token with Gmail Api', 'websmtp');
+                    $errorDescription = __('Failed to renew token with Gmail Api', 'fluent-smtp');
                 }
 
                 return new \WP_Error('api_error', $errorDescription);
@@ -315,12 +315,12 @@ class Handler extends BaseHandler
         $connection = $info->getSetting();
 
         $extraRow = [
-            'title'   => __('Token Validity', 'websmtp'),
+            'title'   => __('Token Validity', 'fluent-smtp'),
             'content' => 'Valid (' . (int)(($connection['expire_stamp'] - time()) / 60) . 'minutes)'
         ];
 
         if (($connection['expire_stamp']) < time()) {
-            $extraRow['content'] = __('Invalid. Please re-authenticate', 'websmtp');
+            $extraRow['content'] = __('Invalid. Please re-authenticate', 'fluent-smtp');
         }
 
         $connection['extra_rows'] = [$extraRow];

@@ -311,7 +311,7 @@ class NotificationHelper
             $sendingTo = Arr::get($logData, 'to');
         }
 
-        $heading = sprintf(__('[%s] Failed to send email', 'websmtp'), get_bloginfo('name'));
+        $heading = sprintf(__('[%s] Failed to send email', 'fluent-smtp'), get_bloginfo('name'));
 
         return [
             'text'   => $heading,
@@ -375,15 +375,15 @@ class NotificationHelper
             $sendingTo = Arr::get($logData, 'to');
         }
 
-        $heading = sprintf(__('[%s] Failed to send email', 'websmtp'), get_bloginfo('name'));
+        $heading = sprintf(__('[%s] Failed to send email', 'fluent-smtp'), get_bloginfo('name'));
 
         $content = '## ' . $heading . "\n";
-        $content .= __('**Website URL:** ', 'websmtp') . site_url() . "\n";
-        $content .= __('**Sending Driver:** ', 'websmtp') . strtoupper($handler->getSetting('provider')) . "\n";
-        $content .= __('**To Email Address:** ', 'websmtp') . $sendingTo . "\n";
-        $content .= __('**Email Subject:** ', 'websmtp') . Arr::get($logData, 'subject') . "\n";
-        $content .= __('**Error Message:** ```', 'websmtp') . self::getErrorMessageFromResponse(self::unserialize(Arr::get($logData, 'response'))) . "```\n";
-        $content .= __('[View Failed Email(s)](', 'websmtp') . admin_url('options-general.php?page=fluent-mail#/logs?per_page=10&page=1&status=failed&search=') . ')';
+        $content .= __('**Website URL:** ', 'fluent-smtp') . site_url() . "\n";
+        $content .= __('**Sending Driver:** ', 'fluent-smtp') . strtoupper($handler->getSetting('provider')) . "\n";
+        $content .= __('**To Email Address:** ', 'fluent-smtp') . $sendingTo . "\n";
+        $content .= __('**Email Subject:** ', 'fluent-smtp') . Arr::get($logData, 'subject') . "\n";
+        $content .= __('**Error Message:** ```', 'fluent-smtp') . self::getErrorMessageFromResponse(self::unserialize(Arr::get($logData, 'response'))) . "```\n";
+        $content .= __('[View Failed Email(s)](', 'fluent-smtp') . admin_url('options-general.php?page=fluent-mail#/logs?per_page=10&page=1&status=failed&search=') . ')';
 
         return $content;
     }

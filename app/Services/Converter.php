@@ -105,10 +105,10 @@ class Converter
         }
 
         return [
-            'title'       => __('Import data from your current plugin (WP Mail SMTP)', 'websmtp'),
-            'subtitle'    => __('We have detected other SMTP plugin\'s settings available on your site. Click bellow to pre-populate the values', 'websmtp'),
+            'title'       => __('Import data from your current plugin (WP Mail SMTP)', 'fluent-smtp'),
+            'subtitle'    => __('We have detected other SMTP plugin\'s settings available on your site. Click bellow to pre-populate the values', 'fluent-smtp'),
             'settings'    => $commonSettings,
-            'button_text' => __('Import From WP Mail SMTP', 'websmtp')
+            'button_text' => __('Import From WP Mail SMTP', 'fluent-smtp')
         ];
     }
 
@@ -409,11 +409,11 @@ class Converter
         ];
 
         return [
-            'title'       => __('Import data from your current plugin (Easy WP SMTP)', 'websmtp'),
-            'subtitle'    => __('We have detected other SMTP plugin\'s settings available on your site. Click bellow to pre-populate the values', 'websmtp'),
+            'title'       => __('Import data from your current plugin (Easy WP SMTP)', 'fluent-smtp'),
+            'subtitle'    => __('We have detected other SMTP plugin\'s settings available on your site. Click bellow to pre-populate the values', 'fluent-smtp'),
             'driver'      => 'smtp',
             'settings'    => $commonSettings,
-            'button_text' => __('Import From Easy WP SMTP', 'websmtp')
+            'button_text' => __('Import From Easy WP SMTP', 'fluent-smtp')
         ];
 
     }
