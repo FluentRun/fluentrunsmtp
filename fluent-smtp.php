@@ -26,6 +26,50 @@ register_deactivation_hook(
     __FILE__, array('\FluentMail\Includes\Deactivator', 'handle')
 );
 
+add_action('plugins_loaded', 'fluentSmtpInitUpdater', 8);
+
+function fluentSmtpInitUpdater()
+{
+    if (!class_exists('\\FluentMail\\Updater\\FluentLicensing')) {
+        require_once plugin_dir_path(__FILE__) . 'updater/FluentLicensing.php';
+    }
+
+    try {
+        $licensing = (new \FluentMail\Updater\FluentLicensing())->register(apply_filters('fluentsmtp_updater_config', [
+            'version'  => FLUENTMAIL_PLUGIN_VERSION,
+            'item_id'  => 'fluentsmtp',
+            'basename' => plugin_basename(FLUENTMAIL_PLUGIN_FILE),
+            'api_url'  => 'https://fluentsmtp.com/',
+        ]));
+    } catch (\Exception $exception) {
+        error_log('FluentSMTP updater initialization failed: ' . $exception->getMessage());
+        return;
+    }
+
+    if (!is_admin()) {
+        return;
+    }
+
+    if (!class_exists('\\FluentMail\\Updater\\LicenseSettings')) {
+        require_once plugin_dir_path(__FILE__) . 'updater/LicenseSettings.php';
+    }
+
+    (new \FluentMail\Updater\LicenseSettings())
+        ->register($licensing, [
+            'menu_title'   => 'FluentSMTP License',
+            'page_title'   => 'FluentSMTP License',
+            'title'        => 'FluentSMTP License Settings',
+            'description'  => 'Manage your FluentSMTP license to enable automatic updates.',
+            'purchase_url' => 'https://fluentsmtp.com/pricing/?utm_source=fluentsmtp_plugin&utm_medium=license_screen',
+            'account_url'  => 'https://fluentsmtp.com/account/',
+            'plugin_name'  => 'FluentSMTP',
+        ])
+        ->addPage([
+            'type'      => 'options',
+            'menu_slug' => 'fluentsmtp-license',
+        ]);
+}
+
 /**
  * Initializes the Fluent SMTP plugin.
  *
