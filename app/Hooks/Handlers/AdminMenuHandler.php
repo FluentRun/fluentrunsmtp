@@ -78,12 +78,12 @@ class AdminMenuHandler
             <div
                 style="background-color: #fff;border: 1px solid #dcdcde;box-sizing: border-box;padding: 20px;margin: 15px 0;"
                 class="fluent_smtp_box">
-                <h3 style="margin: 0;"><?php __('For SMTP, you already have FluentSMTP Installed', 'fluent-smtp'); ?></h3>
-                <p><?php __('You seem to be looking for an SMTP plugin, but there\'s no need for another one — FluentSMTP is already installed on your site. FluentSMTP is a comprehensive, free, and open-source plugin with full features available without any upsell', 'fluent-smtp'); ?>
-                    (<a href="https://fluentsmtp.com/why-we-built-fluentsmtp-plugin/"><?php __('learn why it\'s free', 'fluent-smtp'); ?></a>)<?php __('. It\'s compatible with various SMTP services, including Amazon SES, SendGrid, MailGun, ElasticEmail, SendInBlue, Google, Microsoft, and others, providing you with a wide range of options for your email needs.', 'fluent-smtp'); ?>
+                <h3 style="margin: 0;"><?php __('For SMTP, you already have FluentRunSmtp Installed', 'fluent-smtp'); ?></h3>
+                <p><?php __('You seem to be looking for an SMTP plugin, but there\'s no need for another one — FluentRunSmtp is already installed on your site. FluentRunSmtp is a comprehensive, free, and open-source plugin with full features available without any upsell', 'fluent-smtp'); ?>
+                (<a href="https://fluentsmtp.com/why-we-built-fluentsmtp-plugin/"><?php __('learn why it\'s free', 'fluent-smtp'); ?></a>)<?php __('. It\'s compatible with various SMTP services, including Amazon SES, SendGrid, MailGun, ElasticEmail, SendInBlue, Google, Microsoft, and others, providing you with a wide range of options for your email needs.', 'fluent-smtp'); ?>
                 </p><a href="<?php echo esc_url(admin_url('options-general.php?page=fluent-mail#/')); ?>"
-                       class="wp-core-ui button button-primary"><?php __('Go To FluentSMTP Settings', 'fluent-smtp'); ?></a>
-                <p style="font-size: 80%; margin: 15px 0 0;"><?php __('This notice is from FluentSMTP plugin to prevent plugin
+                       class="wp-core-ui button button-primary"><?php __('Go To FluentRunSmtp Settings', 'fluent-smtp'); ?></a>
+                <p style="font-size: 80%; margin: 15px 0 0;"><?php __('This notice is from FluentRunSmtp plugin to prevent plugin
                     conflict.', 'fluent-smtp') ?></p>
             </div>
             <?php
@@ -106,7 +106,7 @@ class AdminMenuHandler
 
     public function addMenu()
     {
-        $title = $this->app->applyCustomFilters('admin-menu-title', __('FluentSMTP', 'fluent-smtp'));
+        $title = $this->app->applyCustomFilters('admin-menu-title', __('FluentRunSmtp', 'fluent-smtp'));
 
         add_submenu_page(
             'options-general.php',
@@ -231,7 +231,7 @@ class AdminMenuHandler
         add_filter('admin_footer_text', function ($text) {
             return sprintf(
                 __('%1$s is a free plugin & it will be always free %2$s. %3$s', 'fluent-smtp'),
-                '<b>FluentSMTP</b>',
+                '<b>FluentRunSmtp</b>',
                 '<a href="https://fluentsmtp.com/why-we-built-fluentsmtp-plugin/" target="_blank" rel="noopener noreferrer">'. esc_html__('(Learn why it\'s free)', 'fluent-smtp') .'</a>',
                 '<a href="https://wordpress.org/support/plugin/fluent-smtp/reviews/?filter=5" target="_blank" rel="noopener noreferrer">'. esc_html__('Write a review ★★★★★', 'fluent-smtp') .'</a>'
             );
@@ -277,19 +277,19 @@ class AdminMenuHandler
         if ($requireUpdate) { ?>
             <div class="notice notice-warning">
                 <p>
-                    <?php echo esc_html(sprintf(__('WordPress version 5.5 or greater is required for FluentSMTP. You are using version %s currently. Please update your WordPress Core to use FluentSMTP Plugin.', 'fluent-smtp'), $wp_version)); ?>
+                    <?php echo esc_html(sprintf(__('WordPress version 5.5 or greater is required for FluentRunSmtp. You are using version %s currently. Please update your WordPress Core to use FluentRunSmtp Plugin.', 'fluent-smtp'), $wp_version)); ?>
                 </p>
             </div>
         <?php } else if (empty($connections)) {
             ?>
             <div class="notice notice-warning">
                 <p>
-                    <?php esc_html_e('FluentSMTP needs to be configured for it to work.', 'fluent-smtp'); ?>
+                    <?php esc_html_e('FluentRunSmtp needs to be configured for it to work.', 'fluent-smtp'); ?>
                 </p>
                 <p>
                     <a href="<?php echo esc_url(admin_url('options-general.php?page=fluent-mail#/')); ?>"
                        class="button button-primary">
-                        <?php esc_html_e('Configure FluentSMTP', 'fluent-smtp'); ?>
+                        <?php esc_html_e('Configure FluentRunSmtp', 'fluent-smtp'); ?>
                     </a>
                 </p>
             </div>
@@ -347,7 +347,7 @@ class AdminMenuHandler
 
             wp_add_dashboard_widget(
                 $widget_key,
-                esc_html__('Fluent SMTP', 'fluent-smtp'),
+                esc_html__('FluentRunSmtp', 'fluent-smtp'),
                 [$this, 'dashWidgetContent']
             );
 
@@ -383,7 +383,7 @@ class AdminMenuHandler
                             if (response && response.html) {
                                 document.getElementById('fsmtp_dashboard_widget_html').innerHTML = response.html;
                             } else {
-                                document.getElementById('fsmtp_dashboard_widget_html').innerHTML = '<h3>Failed to load FluentSMTP Reports</h3>';
+                                document.getElementById('fsmtp_dashboard_widget_html').innerHTML = '<h3>Failed to load FluentRunSmtp Reports</h3>';
                             }
                         }
                     };
