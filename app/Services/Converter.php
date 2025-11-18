@@ -122,14 +122,6 @@ class Converter
             return $encrypted;
         }
 
-        if (!is_string($encrypted)) {
-            return $encrypted;
-        }
-
-        if ($encrypted === '') {
-            return $encrypted;
-        }
-
         // Unpack base64 message.
         $decoded = base64_decode($encrypted); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 
@@ -177,10 +169,6 @@ class Converter
 
         // If we already have the secret, send it back.
         if (false !== $secret_key) {
-            if (!is_string($secret_key) || $secret_key === '') {
-                return false;
-            }
-
             $secret_key = base64_decode($secret_key); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
         }
 

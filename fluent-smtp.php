@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name:  WebSMTP
+Plugin Name:  FluentSMTP
 Plugin URI:   https://fluentsmtp.com
 Description:  The Ultimate SMTP Connection Plugin for WordPress.
 Version:      1.0.0
-Author:       WebSMTP & WPManageNinja Team
-Author URI:   https://webmakerr.com
+Author:       FluentSMTP & WPManageNinja Team
+Author URI:   https://fluentsmtp.com
 License:      GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:  fluent-smtp
+Text Domain:  fluent-run-smtp
 Domain Path:  /language
 */
 
@@ -43,59 +43,6 @@ function fluentSmtpInit() {
 }
 
 fluentSmtpInit();
-
-add_action('init', function () {
-    if (!is_admin()) {
-        return;
-    }
-
-    if (!class_exists('\\FluentMail\\Updater\\FluentLicensing')) {
-        $updaterFile = plugin_dir_path(__FILE__) . 'updater/FluentLicensing.php';
-
-        if (file_exists($updaterFile)) {
-            require_once $updaterFile;
-        }
-    }
-
-    try {
-        $licenseInstance = (new \FluentMail\Updater\FluentLicensing())->register([
-            'version'  => FLUENTMAIL_PLUGIN_VERSION,
-            'item_id'  => '1643',
-            'basename' => plugin_basename(__FILE__),
-            'api_url'  => 'https://east.webmakerr.com'
-        ]);
-
-        if (!class_exists('\\FluentMail\\Updater\\LicenseSettings')) {
-            $licenseSettings = plugin_dir_path(__FILE__) . 'updater/LicenseSettings.php';
-
-            if (file_exists($licenseSettings)) {
-                require_once $licenseSettings;
-            }
-        }
-
-        if (class_exists('\\FluentMail\\Updater\\LicenseSettings')) {
-            (new \FluentMail\Updater\LicenseSettings())
-                ->register($licenseInstance, [
-                    'menu_title'   => __('WebSMTP License', 'fluent-smtp'),
-                    'page_title'   => __('WebSMTP License', 'fluent-smtp'),
-                    'title'        => __('WebSMTP License', 'fluent-smtp'),
-                    'license_key'  => __('License Key', 'fluent-smtp'),
-                    'purchase_url' => 'https://fluentsmtp.com/pricing/?utm_source=plugin&utm_medium=settings&utm_campaign=license',
-                    'account_url'  => 'https://fluentsmtp.com/account/',
-                    'plugin_name'  => 'WebSMTP'
-                ])
-                ->addPage([
-                    'type'        => 'submenu',
-                    'parent_slug' => 'options-general.php',
-                    'menu_slug'   => 'fluent-smtp-license',
-                    'page_title'  => __('WebSMTP License', 'fluent-smtp'),
-                    'menu_title'  => __('WebSMTP License', 'fluent-smtp')
-                ]);
-        }
-    } catch (\Exception $exception) {
-        error_log('FluentSMTP updater initialization failed: ' . $exception->getMessage());
-    }
-});
 
 if (!function_exists('wp_mail')):
     function wp_mail($to, $subject, $message, $headers = '', $attachments = array()) {
