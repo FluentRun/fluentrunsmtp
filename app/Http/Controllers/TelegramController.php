@@ -19,7 +19,7 @@ class TelegramController extends Controller
 
         if (!is_email($userEmail)) {
             return $this->sendError([
-                'message' => __('Please provide a valid email address', 'fluent-smtp')
+                'message' => __('Please provide a valid email address', 'websmtp')
             ], 422);
         }
 
@@ -42,7 +42,7 @@ class TelegramController extends Controller
         }
 
         return $this->sendSuccess([
-            'message'    => __('Awesome! Please activate the connection from your telegram account.', 'fluent-smtp'),
+            'message'    => __('Awesome! Please activate the connection from your telegram account.', 'websmtp'),
             'site_token' => Arr::get($activationData, 'site_token'),
             'site_pin'   => Arr::get($activationData, 'site_pin'),
         ]);
@@ -56,7 +56,7 @@ class TelegramController extends Controller
 
         if (empty($siteToken)) {
             return $this->sendError([
-                'message' => __('Please provide site token', 'fluent-smtp')
+                'message' => __('Please provide site token', 'websmtp')
             ], 422);
         }
 
@@ -84,7 +84,7 @@ class TelegramController extends Controller
 
         return $this->sendSuccess([
             'success' => true,
-            'message' => __('Connection successful', 'fluent-smtp'),
+            'message' => __('Connection successful', 'websmtp'),
         ]);
     }
 
@@ -96,7 +96,7 @@ class TelegramController extends Controller
 
         if (Arr::get($settings, 'telegram.status') != 'yes') {
             return $this->sendSuccess([
-                'message'                => __('Telegram notification is not enabled', 'fluent-smtp'),
+                'message'                => __('Telegram notification is not enabled', 'websmtp'),
                 'telegram_notify_status' => 'no'
             ], 200);
         }
@@ -126,7 +126,7 @@ class TelegramController extends Controller
 
         if (Arr::get($settings, 'telegram.status') != 'yes') {
             return $this->sendError([
-                'message' => __('Telegram notification is not enabled', 'fluent-smtp')
+                'message' => __('Telegram notification is not enabled', 'websmtp')
             ], 422);
         }
 
@@ -140,7 +140,7 @@ class TelegramController extends Controller
         }
 
         return $this->sendSuccess([
-            'message' => __('Test message sent successfully', 'fluent-smtp')
+            'message' => __('Test message sent successfully', 'websmtp')
         ]);
     }
 
@@ -150,14 +150,14 @@ class TelegramController extends Controller
 
         if (Arr::get($settings, 'telegram.status') != 'yes') {
             return $this->sendError([
-                'message' => __('Telegram notification is not enabled', 'fluent-smtp')
+                'message' => __('Telegram notification is not enabled', 'websmtp')
             ], 422);
         }
 
         NotificationHelper::disconnectTelegram(Arr::get($settings, 'telegram.token'));
 
         return $this->sendSuccess([
-            'message' => __('Telegram connection has been disconnected successfully', 'fluent-smtp')
+            'message' => __('Telegram connection has been disconnected successfully', 'websmtp')
         ]);
     }
 }

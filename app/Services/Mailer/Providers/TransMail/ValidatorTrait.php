@@ -16,19 +16,19 @@ trait ValidatorTrait
 
         if($keyStoreType == 'db') {
             if (! Arr::get($connection, 'api_key')) {
-                $errors['api_key']['required'] = __('Api key is required.', 'fluent-smtp');
+                $errors['api_key']['required'] = __('Api key is required.', 'websmtp');
             }
 
             if (! Arr::get($connection, 'domain_name')) {
-                $errors['domain_name']['required'] = __('Domain name is required.', 'fluent-smtp');
+                $errors['domain_name']['required'] = __('Domain name is required.', 'websmtp');
             }
         } else if($keyStoreType == 'wp_config') {
             if(!defined('FLUENTMAIL_MAILGUN_API_KEY') || !FLUENTMAIL_MAILGUN_API_KEY) {
-                $errors['api_key']['required'] = __('Please define FLUENTMAIL_MAILGUN_API_KEY in wp-config.php file.', 'fluent-smtp');
+                $errors['api_key']['required'] = __('Please define FLUENTMAIL_MAILGUN_API_KEY in wp-config.php file.', 'websmtp');
             }
 
             if(!defined('FLUENTMAIL_MAILGUN_DOMAIN') || !FLUENTMAIL_MAILGUN_DOMAIN) {
-                $errors['domain_name']['required'] = __('Please define FLUENTMAIL_MAILGUN_DOMAIN in wp-config.php file.', 'fluent-smtp');
+                $errors['domain_name']['required'] = __('Please define FLUENTMAIL_MAILGUN_DOMAIN in wp-config.php file.', 'websmtp');
             }
         }
 

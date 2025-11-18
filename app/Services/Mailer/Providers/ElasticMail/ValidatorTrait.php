@@ -16,11 +16,11 @@ trait ValidatorTrait
 
         if($keyStoreType == 'db') {
             if (! Arr::get($connection, 'api_key')) {
-                $errors['api_key']['required'] = __('Api key is required.', 'fluent-smtp');
+                $errors['api_key']['required'] = __('Api key is required.', 'websmtp');
             }
         } else if($keyStoreType == 'wp_config') {
             if(!defined('FLUENTMAIL_ELASTICMAIL_API_KEY') || !FLUENTMAIL_ELASTICMAIL_API_KEY) {
-                $errors['api_key']['required'] = __('Please define FLUENTMAIL_ELASTICMAIL_API_KEY in wp-config.php file.', 'fluent-smtp');
+                $errors['api_key']['required'] = __('Please define FLUENTMAIL_ELASTICMAIL_API_KEY in wp-config.php file.', 'websmtp');
             }
         }
 
