@@ -3,7 +3,7 @@
 Plugin Name:  FluentRunSMTP
 Plugin URI:   https://fluentrun.com
 Description:  The Ultimate SMTP Connection Plugin for WordPress.
-Version:      2.2.92
+Version:      1.0.0
 Author:       FluentSMTP & WPManageNinja Team
 Author URI:   https://fluentsmtp.com
 License:      GPL2
