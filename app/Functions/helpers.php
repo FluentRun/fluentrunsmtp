@@ -44,7 +44,7 @@
 
     if (!function_exists('fluentMailIsListedSenderEmail')) {
         /**
-         * Check if the given email is listed as a sender email in the Fluent SMTP plugin settings.
+         * Check if the given email is listed as a sender email in the FluentRunSmtp plugin settings.
          *
          * @param string $email The email address to check.
          * @return bool Returns true if the email is listed as a sender email, false otherwise.
@@ -174,7 +174,7 @@
 
     if (!function_exists('fluentMailSesConnection')) {
         /**
-         * Establishes a connection to the Fluent SMTP service using the Amazon Simple Email Service (SES).
+         * Establishes a connection to the FluentRunSmtp service using the Amazon Simple Email Service (SES).
          *
          * @param array $connection The connection details including sender email, access key, secret key, and region.
          * @return SimpleEmailService The SES driver instance for the specified sender email.
@@ -862,7 +862,7 @@
             $hints   = $details->getFileName() . ':' . $details->getStartLine();
             ?>
 <div class="notice notice-warning fluentsmtp_urgent is-dismissible">
-    <p>The <strong>FluentSMTP</strong> plugin depends on <a target="_blank" href="https://developer.wordpress.org/reference/functions/wp_mail/">wp_mail</a> pluggable function and plugin is not able to extend it. Please check if another plugin is using this and disable it for <strong>FluentSMTP</strong> to work!</p>
+    <p>The <strong>FluentRunSmtp</strong> plugin depends on <a target="_blank" href="https://developer.wordpress.org/reference/functions/wp_mail/">wp_mail</a> pluggable function and plugin is not able to extend it. Please check if another plugin is using this and disable it for <strong>FluentRunSmtp</strong> to work!</p>
     <p style="color: red;">
         <?php esc_html_e('Possible Conflict: ', 'fluent-smtp');?>
         <?php echo $hints; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

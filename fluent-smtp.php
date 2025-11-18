@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name:  FluentRunSMTP
+Plugin Name:  FluentRunSmtp
 Plugin URI:   https://east.webmakerr.com
 Description:  The Ultimate SMTP Connection Plugin for WordPress.
 Version:      1.0.0
-Author:       FluentSMTP & WPManageNinja Team
+Author:       FluentRunSmtp & WPManageNinja Team
 Author URI:   https://fluentsmtp.com
 License:      GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
@@ -42,7 +42,7 @@ function fluentSmtpInitUpdater()
             'api_url'  => 'https://east.webmakerr.com/',
         ]));
     } catch (\Exception $exception) {
-        error_log('FluentSMTP updater initialization failed: ' . $exception->getMessage());
+        error_log('FluentRunSmtp updater initialization failed: ' . $exception->getMessage());
         return;
     }
 
@@ -56,13 +56,13 @@ function fluentSmtpInitUpdater()
 
     (new \FluentMail\Updater\LicenseSettings())
         ->register($licensing, [
-            'menu_title'   => 'FluentSMTP License',
-            'page_title'   => 'FluentSMTP License',
-            'title'        => 'FluentSMTP License Settings',
-            'description'  => 'Manage your FluentSMTP license to enable automatic updates.',
+            'menu_title'   => 'FluentRunSmtp License',
+            'page_title'   => 'FluentRunSmtp License',
+            'title'        => 'FluentRunSmtp License Settings',
+            'description'  => 'Manage your FluentRunSmtp license to enable automatic updates.',
             'purchase_url' => 'https://fluentsmtp.com/pricing/?utm_source=fluentsmtp_plugin&utm_medium=license_screen',
             'account_url'  => 'https://fluentsmtp.com/account/',
-            'plugin_name'  => 'FluentSMTP',
+            'plugin_name'  => 'FluentRunSmtp',
         ])
         ->addPage([
             'type'      => 'options',
@@ -71,7 +71,7 @@ function fluentSmtpInitUpdater()
 }
 
 /**
- * Initializes the Fluent SMTP plugin.
+ * Initializes the FluentRunSmtp plugin.
  *
  * This function creates a new instance of the FluentMail\Includes\Core\Application class and registers
  * an action hook to be executed when the plugins are loaded. Inside the action hook, the 'fluentMail_loaded'
