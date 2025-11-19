@@ -9,10 +9,26 @@ use FluentMail\Includes\Core\Application;
 use FluentMail\App\Services\Mailer\Manager;
 use FluentMail\Includes\Support\Arr;
 use FluentMail\App\Services\TransStrings;
+use FluentMail\Updater\FluentLicensing;
+use FluentMail\Updater\LicenseSettings;
 
 class AdminMenuHandler
 {
     protected $app = null;
+
+    /**
+     * Cache license validation result for the current request.
+     *
+     * @var bool|null
+     */
+    protected $isLicenseValid = null;
+
+    /**
+     * Stores the latest license validation error to render for the user.
+     *
+     * @var string
+     */
+    protected $licenseError = '';
 
     public function __construct(Application $application)
     {
@@ -128,11 +144,20 @@ class AdminMenuHandler
             wp_schedule_event(time(), 'daily', $dailyTaskHookName);
         }
 
+        if (!$this->isLicenseValid()) {
+            $this->renderLicenseScreen();
+            return;
+        }
+
         $this->app->view->render('admin.menu');
     }
 
     public function enqueueAssets()
     {
+        if (!$this->isLicenseValid()) {
+            return;
+        }
+
         add_action('wp_print_scripts', function () {
             $isSkip = apply_filters('fluentsmtp_skip_no_conflict', false);
 
@@ -262,6 +287,26 @@ class AdminMenuHandler
         return $settings;
     }
 
+    /**
+     * Render the license activation screen and optional error notice.
+     */
+    protected function renderLicenseScreen()
+    {
+        if ($this->licenseError) {
+            echo '<div class="notice notice-error"><p>' . esc_html($this->licenseError) . '</p></div>';
+        }
+
+        if (class_exists('\\FluentMail\\Updater\\LicenseSettings')) {
+            $licenseSettings = LicenseSettings::getInstance();
+            if (method_exists($licenseSettings, 'renderLicensingContent')) {
+                $licenseSettings->renderLicensingContent();
+                return;
+            }
+        }
+
+        echo '<div class="notice notice-error"><p>' . esc_html__('License management screen is unavailable. Please contact support.', 'fluent-smtp') . '</p></div>';
+    }
+
     public function maybeAdminNotice()
     {
         if (!current_user_can('manage_options')) {
@@ -333,6 +378,74 @@ class AdminMenuHandler
         }
 
         return 'yes';
+    }
+
+    /**
+     * Determine whether the plugin license is active and verified.
+     *
+     * @return bool
+     */
+    protected function isLicenseValid()
+    {
+        if (!is_null($this->isLicenseValid)) {
+            return $this->isLicenseValid;
+        }
+
+        if (!class_exists('\\FluentMail\\Updater\\FluentLicensing')) {
+            $this->isLicenseValid = false;
+            return $this->isLicenseValid;
+        }
+
+        try {
+            $licensing = FluentLicensing::getInstance();
+        } catch (\Exception $exception) {
+            $this->licenseError = __('Licensing service is unavailable. Please activate your license to continue.', 'fluent-smtp');
+            $this->isLicenseValid = false;
+            return $this->isLicenseValid;
+        }
+
+        $status = $licensing->getStatus();
+
+        if (!isset($status['status']) || $status['status'] !== 'valid') {
+            $this->licenseError = __('Please activate your FluentRunSmtp license to access the admin dashboard.', 'fluent-smtp');
+            $this->isLicenseValid = false;
+            return $this->isLicenseValid;
+        }
+
+        $transientKey = $licensing->getConfig('slug') . '_license_verified';
+        $cachedVerification = get_transient($transientKey);
+
+        if ($cachedVerification === 'valid') {
+            $this->isLicenseValid = true;
+            return $this->isLicenseValid;
+        }
+
+        $remoteStatus = $licensing->getStatus(true);
+
+        if (is_wp_error($remoteStatus)) {
+            $this->licenseError = sprintf(
+                /* translators: %s validation error message */
+                __('License verification failed: %s', 'fluent-smtp'),
+                $remoteStatus->get_error_message()
+            );
+            $this->isLicenseValid = false;
+            return $this->isLicenseValid;
+        }
+
+        if (!isset($remoteStatus['status']) || $remoteStatus['status'] !== 'valid') {
+            $notice = __('Please activate your FluentRunSmtp license to access the admin dashboard.', 'fluent-smtp');
+            if (!empty($remoteStatus['message'])) {
+                $notice = sanitize_text_field($remoteStatus['message']);
+            }
+            $this->licenseError = $notice;
+            $this->isLicenseValid = false;
+            return $this->isLicenseValid;
+        }
+
+        set_transient($transientKey, 'valid', DAY_IN_SECONDS);
+        $this->isLicenseValid = true;
+
+        return $this->isLicenseValid;
     }
 
     public function initAdminWidget()
